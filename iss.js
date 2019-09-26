@@ -35,13 +35,13 @@ const fetchCoordsByIP = (ip, callback) => {
       return;
     } else {
       const coords = JSON.parse(data);
-      callback(null, {latitude: coords.data.latitude, longitude: coords.data.longitude});
+      callback(null, {lat: coords.data.latitude, lon: coords.data.longitude});
     }
   });
 };
 
 const fetchISSFlyOverTimes = (coords, callback) => {
-  request(`${URL_ISSPASS}?lat=${coords.latitude}&lon=${coords.longitude}`, (err, response, data) => {
+  request(URL_ISSPASS, { qs: coords }, (err, response, data) => {
     // if non-200 status, assume server error
     if (err)  callback(err, null);
     else if (response.statusCode !== 200) {
